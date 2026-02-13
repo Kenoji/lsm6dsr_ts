@@ -1,48 +1,48 @@
 /**
  * I2C Wrapper for LSM6DSR
- * Provides a simple synchronous interface for I2C communication
+ * Uses raspi-i2c for Raspberry Pi I2C communication
  */
 
-import i2cBus, { I2CBus } from 'i2c-bus';
+import { I2C } from 'raspi-i2c';
 import { I2CInterface } from './types';
 
 export class I2CWrapper implements I2CInterface {
-  private bus: I2CBus;
+  private i2c: I2C;
   private address: number;
 
   constructor(busNumber: number, address: number) {
-    this.bus = i2cBus.openSync(busNumber);
+    // raspi-i2c automatically detects the correct bus based on board revision
+    // busNumber parameter is kept for API compatibility but not used
+    this.i2c = new I2C();
     this.address = address;
   }
 
   readByte(register: number): number {
-    return this.bus.readByteSync(this.address, register);
+    return this.i2c.readByteSync(this.address, register);
   }
 
   readWord(register: number): number {
-    return this.bus.readWordSync(this.address, register);
+    return this.i2c.readWordSync(this.address, register);
   }
 
   readBlock(register: number, length: number): Buffer {
-    const buffer = Buffer.alloc(length);
-    this.bus.readI2cBlockSync(this.address, register, length, buffer);
-    return buffer;
+    return this.i2c.readSync(this.address, register, length);
   }
 
   writeByte(register: number, value: number): void {
-    this.bus.writeByteSync(this.address, register, value);
+    this.i2c.writeByteSync(this.address, register, value);
   }
 
   writeWord(register: number, value: number): void {
-    this.bus.writeWordSync(this.address, register, value);
+    this.i2c.writeWordSync(this.address, register, value);
   }
 
   writeBlock(register: number, buffer: Buffer): void {
-    this.bus.writeI2cBlockSync(this.address, register, buffer.length, buffer);
+    this.i2c.writeSync(this.address, register, buffer);
   }
 
   close(): void {
-    this.bus.closeSync();
+    this.i2c.destroy();
   }
 }
 
