@@ -1,0 +1,36 @@
+{
+  "name": "lsm6dsr-ts",
+  "version": "1.0.0",
+  "description": "TypeScript library for LSM6DSR 6-axis IMU sensor on Raspberry Pi",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "lsm6dsr",
+    "imu",
+    "accelerometer",
+    "gyroscope",
+    "i2c",
+    "raspberry-pi",
+    "sensor"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "i2c-bus": "^5.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}
