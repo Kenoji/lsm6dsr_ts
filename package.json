@@ -20,7 +20,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "raspi-i2c": "file:../raspi-i2c"
+    "raspi-i2c": "^6.2.4"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
